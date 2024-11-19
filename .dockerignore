@@ -1,0 +1,9 @@
+.env
+README.md
+nodemon.json
+Dockerfile
+docker-compose.yml
+.gitignore
+.dockerignore
+dist
+node_modules
