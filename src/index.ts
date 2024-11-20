@@ -1,11 +1,10 @@
 import express from 'express';
 import { configs } from './config/env.js';
-import { connectDB } from './database/datasource.js';
+import { connectDB } from './config/datasource.js';
 const app = express();
 
 //Middleware
 app.use(express.json());
-
 
 app.get('/', (req,res) => {
     res.send('Server is working');
