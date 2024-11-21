@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { configs } from './env.js';
+import { User } from '../entities/User.js';
 export const AppDataSource = new DataSource({
     type: 'postgres',
     host: configs.database.POSTGRES_HOST,
@@ -8,7 +9,7 @@ export const AppDataSource = new DataSource({
     username: configs.database.POSTGRES_USER,
     password: configs.database.POSTGRES_PASSWORD,
     database: configs.database.POSTGRES_DB,
-    // entities: [User]
+    entities: [User],
     synchronize: true,
     logging: true,
 });

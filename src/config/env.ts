@@ -10,5 +10,8 @@ export const configs = {
         POSTGRES_USER: process.env.POSTGRES_USER || 'news_admin',
         POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD || 'news_admin',
         POSTGRES_DB: process.env.POSTGRES_DB || 'news_app_db',
+    },
+    auth: {
+        JWT_SECRET: process.env.JWT_SECRET,
     }
 }
