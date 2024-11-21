@@ -37,7 +37,10 @@ const login = async (req: Request, res: Response) => {
         if(!configs.auth.JWT_SECRET) {
             throw new Error('Error in generating token');
         }
-        const token = jwt.sign({userId: userExists.id},configs.auth.JWT_SECRET);
+        const token = jwt.sign({id: userExists.id},configs.auth.JWT_SECRET, {
+            expiresIn: '1h'
+        });
+        //TODO: Refresh Token
         res.status(200).send({message:"Login Succefull", token})
     } catch (error){
         res.status(500).send({message: "Error in Login the User", error})
@@ -45,7 +48,8 @@ const login = async (req: Request, res: Response) => {
 }
 
 const profile = (req: Request, res: Response) => {
-    res.send('User Profile controller');
+    const userId = req.user?.id;
+    res.send({message: 'User Profile controller', userId});
 
 }
 
