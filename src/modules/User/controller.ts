@@ -4,7 +4,6 @@ import { User } from "../../entities/User.js";
 import { AppDataSource } from "../../config/database.js";
 import jwt from "jsonwebtoken";
 import { configs } from "../../config/env.js";
-import { throws } from "assert";
 
 const userRepository = AppDataSource.getRepository(User);
 
@@ -47,9 +46,18 @@ const login = async (req: Request, res: Response) => {
     }
 }
 
-const profile = (req: Request, res: Response) => {
+const profile = async (req: Request, res: Response) => {
     const userId = req.user?.id;
-    res.send({message: 'User Profile controller', userId});
+    try {
+        const user = await userRepository.findOneBy({id: userId});
+        if(!user) {
+            res.status(404).send({message: "User Not Found"});
+            return;
+        }
+        res.status(200).send({user})
+    } catch(error) {
+        res.status(500).send({message: "Error in getting user Profile", error})
+    }
 
 }
 
