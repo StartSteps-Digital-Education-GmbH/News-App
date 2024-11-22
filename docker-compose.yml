@@ -5,12 +5,14 @@ services:
     ports: 
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U news_admin -d news_app_db"]
+      test: ["CMD-SHELL", "pg_isready -U news_admin -d news_app_prod"]
       interval: 10s
       timeout: 5s
       retries: 5
     env_file:
-      - .env
+      - .env.prod
+    volumes:
+      - ./init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
   
   news_app:
     build:
@@ -22,4 +24,4 @@ services:
       postgres:
         condition: service_healthy
     env_file:
-      - .env
+      - .env.prod

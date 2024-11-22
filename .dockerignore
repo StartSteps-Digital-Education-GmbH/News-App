@@ -1,4 +1,5 @@
 .env
+.env.test
 README.md
 nodemon.json
 Dockerfile
