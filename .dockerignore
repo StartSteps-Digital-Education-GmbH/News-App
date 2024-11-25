@@ -8,3 +8,4 @@ docker-compose.yml
 .dockerignore
 dist
 node_modules
+src/tests

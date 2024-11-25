@@ -4,6 +4,7 @@ const envFile = process.env.NODE_ENV === "production" ? ".env.prod" : process.en
 dotenv.config({path: envFile});
 
 export const configs = {
+    NODE_ENV: process.env.NODE_ENV,
     PORT: process.env.PORT || 5000,
     database: {
         POSTGRES_HOST: process.env.POSTGRES_HOST || 'postgres',
