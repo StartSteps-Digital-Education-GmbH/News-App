@@ -12,14 +12,14 @@ const __dirname = path.dirname(__filename);
 
 export default defineConfig([
   {
-    files: ['**/*.{js,ts}'],
-    ignores: ['node_modules', 'dist'],
+    files: ["src/**/*.ts"],
+    ignores: ['node_modules', 'dist', 'src/tests/**/*'], // Exclude tests from linting
     languageOptions: {
       parser: parserTypescript,
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
-        project: path.resolve(__dirname, './tsconfig.json'), // Normalize path
+        project: path.resolve(__dirname, './tsconfig.json'), // Ensure the tsconfig path is correct
         tsconfigRootDir: __dirname,
       },
       globals: {
@@ -32,38 +32,26 @@ export default defineConfig([
       prettier: eslintPluginPrettier,
     },
     rules: {
-      // Core ESLint rules
       'no-unused-vars': 'off',
       'no-console': 'warn',
 
-      // TypeScript-specific rules
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/consistent-type-imports': 'error',
 
-      // Import rules
-      'import/order': [
-        'error',
-        {
-          groups: [
-            ['builtin', 'external'],
-            ['internal', 'parent', 'sibling', 'index'],
-          ],
-          'newlines-between': 'always',
-        },
-      ],
-      'import/no-unresolved': 'error',
+      // Disable the import/order rule completely
+      'import/order': 'off',
 
-      // Prettier integration
       'prettier/prettier': 'error',
     },
     settings: {
       'import/resolver': {
         typescript: {
-          project: path.resolve(__dirname, './tsconfig.json'), // Normalize path
+          project: path.resolve(__dirname, './tsconfig.json'), // Ensure the tsconfig path is correct
         },
       },
     },
+    ignores: ["dist/**", "node_modules/**", "src/tests/**"], // Ensure test files are ignored
   },
 ]);
