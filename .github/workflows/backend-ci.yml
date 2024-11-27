@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  test:
-    name: Run Tests
+  lint-and-test:
+    name: Lint and Test
     runs-on: ubuntu-latest
 
     services:
@@ -37,6 +37,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Run ESLint
+        run: npm run lint
+
       - name: Wait for PostgreSQL to be Ready
         run: |
           for i in {1..10}; do
@@ -50,7 +53,7 @@ jobs:
           echo "PostgreSQL failed to start"
           exit 1
 
-      - name: Run Tests
+      - name: Run Jest Tests
         env:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
