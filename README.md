@@ -135,6 +135,9 @@ npm test
 ```
 This project uses **Jest** for testing. Integration and unit tests are located in the `tests/` directory.
 
+![Lint and Test](https://github.com/StartSteps-Digital-Education-GmbH/News-App/actions/workflows/backend-ci.yml/badge.svg)
+![Docker Build](https://github.com//StartSteps-Digital-Education-GmbH/News-App/actions/workflows/backend-ci.yml/badge.svg)
+
 ---
 
 ## Contributing
