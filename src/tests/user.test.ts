@@ -37,7 +37,6 @@ describe("User Tests", () => {
         const invalidUser = {
             email: faker.internet.email(),
             password: faker.internet.password(),
-            name: ""
         };
         const res = await request(app).post(registerEndpoint).send(invalidUser);
         expect(res.status).toBe(400);
