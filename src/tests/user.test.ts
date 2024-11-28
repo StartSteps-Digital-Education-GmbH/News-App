@@ -67,7 +67,7 @@ describe('user login tests', () => {
       password: randomUser.password,
     });
     expect(res.status).toBe(400);
-    expect(res.body.message).toContain('"email" is required');
+    expect(res.body.error).toContain('"email" is required');
   });
 
   it('should return 400 for missing password', async () => {
@@ -75,6 +75,6 @@ describe('user login tests', () => {
       email: randomUser.email,
     });
     expect(res.status).toBe(400);
-    expect(res.body.message).toContain('"password" is required');
+    expect(res.body.error).toContain('"password" is required');
   });
 });
