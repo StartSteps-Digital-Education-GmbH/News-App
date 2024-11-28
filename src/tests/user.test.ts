@@ -40,7 +40,7 @@ describe('user login tests', () => {
       password: randomUser.password,
     });
     expect(res.status).toBe(200);
-    expect(res.body.message).toContain('Login Successful');
+    expect(res.body.message).toContain('Login successful');
     expect(res.body.token).toBeTruthy();
   });
 
