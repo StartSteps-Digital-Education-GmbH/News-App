@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  test:
-    name: Run Tests
+  lint-and-test:
+    name: Lint and Test
     runs-on: ubuntu-latest
 
     services:
@@ -20,10 +20,10 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
         options: >-
-          --health-cmd="pg_isready -U ${{ secrets.POSTGRES_USER }} -d ${{ secrets.POSTGRES_DB }}"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
+          --health-cmd="pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"
 
     steps:
       - name: Checkout Code
@@ -36,6 +36,9 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
+
+      - name: Run ESLint
+        run: npm run lint
 
       - name: Wait for PostgreSQL to be Ready
         run: |
@@ -50,7 +53,7 @@ jobs:
           echo "PostgreSQL failed to start"
           exit 1
 
-      - name: Run Tests
+      - name: Run Jest Tests
         env:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
