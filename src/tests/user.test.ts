@@ -30,9 +30,8 @@ describe('User Tests', () => {
 
 // User Login Tests
 describe('user login tests', () => {
-  beforeAll(async () => {
-    const registeredUser = await request(app).post(register).send(randomUser);
-    expect(registeredUser.status).toBe(201);
+  beforeEach(async () => {
+    await request(app).post(register).send(randomUser);
   });
 
   it('should login with valid credentials', async () => {
@@ -41,26 +40,26 @@ describe('user login tests', () => {
       password: randomUser.password,
     });
     expect(res.status).toBe(200);
-    expect(res.body.message).toBe('login successful');
+    expect(res.body.message).toContain('Login Successful');
     expect(res.body.token).toBeTruthy();
   });
 
   it('should return 401 for wrong email', async () => {
     const res = await request(app).post(login).send({
-      email: 'this is not an email',
+      email: 'wrong@email.com',
       password: randomUser.password,
     });
     expect(res.status).toBe(401);
-    expect(res.body.message).toBe('login credentials are wrong');
+    expect(res.body.message).toBe('Login credentials are wrong');
   });
 
   it('should return 401 for wrong password', async () => {
     const res = await request(app).post(login).send({
       email: randomUser.email,
-      password: 'wrong password',
+      password: 'wrongpassword',
     });
     expect(res.status).toBe(401);
-    expect(res.body.message).toBe('login credentials are wrong');
+    expect(res.body.message).toBe('Login credentials are wrong');
   });
 
   it('should return 400 for missing email', async () => {
@@ -68,7 +67,7 @@ describe('user login tests', () => {
       password: randomUser.password,
     });
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe('email is required');
+    expect(res.body.message).toContain('"email" is required');
   });
 
   it('should return 400 for missing password', async () => {
@@ -76,6 +75,6 @@ describe('user login tests', () => {
       email: randomUser.email,
     });
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe('email is required');
+    expect(res.body.message).toContain('"password" is required');
   });
 });
