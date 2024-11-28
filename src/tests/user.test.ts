@@ -24,7 +24,7 @@ describe("User Tests", () => {
     it("should register a User", async () => {
         const res = await request(app).post(registerEndpoint).send(randomUser);
         expect(res.status).toBe(201);
-        expect(res.body.message).toBe("User Registered Succefully");
+        expect(res.body.message).toBe("User registered successfully");
     });
 
     it("should not register a User with duplicate email", async () => {
