@@ -23,9 +23,9 @@ const register = async (req: Request, res: Response) => {
       password: hashedPassword,
     });
     await userRepository.save(user);
-    res.status(201).send({ message: 'User Registered Succefully' });
+    res.status(201).send({ message: 'User registered successfully' });
   } catch (error) {
-    res.status(500).send({ message: 'Error in Creating the User', error });
+    res.status(500).send({ message: 'Error in creating the user', error });
   }
 };
 
@@ -35,7 +35,7 @@ const login = async (req: Request, res: Response) => {
     const userExists = await userRepository.findOneBy({ email });
 
     if (!userExists || !(await bcrypt.compare(password, userExists.password))) {
-      res.status(401).send({ message: 'Login Credintials are wrong' });
+      res.status(401).send({ message: 'Login credentials are wrong' });
       return;
     }
     if (!configs.auth.JWT_SECRET) {
@@ -45,9 +45,9 @@ const login = async (req: Request, res: Response) => {
       expiresIn: '1h',
     });
     //TODO: Refresh Token
-    res.status(200).send({ message: 'Login Succefull', token });
+    res.status(200).send({ message: 'Login successfull', token });
   } catch (error) {
-    res.status(500).send({ message: 'Error in Login the User', error });
+    res.status(500).send({ message: 'Error in login the user', error });
   }
 };
 
@@ -56,7 +56,7 @@ const profile = async (req: Request, res: Response) => {
   try {
     const user = await userRepository.findOneBy({ id: userId });
     if (!user) {
-      res.status(404).send({ message: 'User Not Found' });
+      res.status(404).send({ message: 'User not found' });
       return;
     }
     res.status(200).send({ user });

@@ -24,7 +24,7 @@ describe('User Tests', () => {
   it('should register a User', async () => {
     const res = await request(app).post('/api/users/register').send(randomUser);
     expect(res.status).toBe(201);
-    expect(res.body.message).toBe('User Registered Successfully');
+    expect(res.body.message).toBe('User registered successfully');
   });
 });
 
