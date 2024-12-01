@@ -4,7 +4,10 @@ import {
   Entity,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
+  Relation,
 } from 'typeorm';
+import { Profile } from './Profile.js';
 
 @Entity('users')
 export class User {
@@ -19,6 +22,9 @@ export class User {
 
   @Column({ nullable: false })
   name!: string;
+
+  @OneToOne(() => Profile, (profile) => profile.user, { cascade: true })
+  profile!: Relation<Profile>; 
 
   @CreateDateColumn()
   createdAt!: Date;
