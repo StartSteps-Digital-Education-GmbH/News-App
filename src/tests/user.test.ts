@@ -11,6 +11,7 @@ let randomUser: User;
 let validToken: string;
 let expiredToken: string;
 let invalidToken: string;
+let validTokenForNotRegisteredUser: string
 const getUserProfileURL = '/api/users/profile';
 
 beforeAll(async () => {
@@ -24,14 +25,21 @@ beforeAll(async () => {
   const savedUser = await AppDataSource.getRepository(User).save(newUser);
   randomUser = savedUser;
 
-  validToken = jwt.sign({ userId: randomUser.id }, configs.auth.JWT_SECRET, {
+  if (!configs.auth.JWT_SECRET) {
+    throw new Error('Error in verifing the token');
+  }
+  
+  validToken = jwt.sign({ id: randomUser.id }, configs.auth.JWT_SECRET, {
     expiresIn: '1h',
   });
-  expiredToken = jwt.sign({ userId: randomUser.id }, configs.auth.JWT_SECRET, {
-    expiresIn: '-1h',
-  });
-  invalidToken = jwt.sign({ userId: 9999 }, configs.auth.JWT_SECRET, {
+  validTokenForNotRegisteredUser = jwt.sign({ id: 100 }, configs.auth.JWT_SECRET, {
     expiresIn: '1h',
+  });
+  invalidToken = jwt.sign({ id: randomUser.id }, 'invalidJWTSecret', {
+    expiresIn: '1h',
+  });
+  expiredToken = jwt.sign({ id: randomUser.id }, configs.auth.JWT_SECRET, {
+    expiresIn: '-1s',
   });
 });
 
@@ -50,7 +58,7 @@ describe('User test', () => {
   it('should register a user', async () => {
     const res = await request(app).post('/api/users/register').send(randomUser);
     expect(res.status).toBe(201);
-    expect(res.body.message).toBe('User registered');
+    expect(res.body.message).toBe('User Registered Succefully');
   });
 });
 
@@ -67,20 +75,28 @@ describe('User profile test', () => {
     });
   });
 
+  it('should not retrive a user profile when a user is not found', async () => {
+    const res = await request(app)
+      .get(getUserProfileURL)
+      .set('Authorization', `Bearer ${validTokenForNotRegisteredUser}`);
+    expect(res.status).toBe(404);
+    expect(res.body.message).toBe('User Not Found');
+  });
+
   it('should not retrive a user profile when a token is not sent', async () => {
     const res = await request(app)
       .get(getUserProfileURL)
       .set('Authorization', `Bearer `);
     expect(res.status).toBe(401);
-    expect(res.body.message).toBe('No auth token provided');
+    expect(res.body.message).toBe('No auth Token provided');
   });
 
-  it('should not retrive a user profile when a user is not found', async () => {
+  it('should not retrive a user profile when a invalid token is sent', async () => {
     const res = await request(app)
       .get(getUserProfileURL)
       .set('Authorization', `Bearer ${invalidToken}`);
-    expect(res.status).toBe(404);
-    expect(res.body.message).toBe('User not founf');
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('Invalid token');
   });
 
   it('should not retrive a user profile when the token is expired', async () => {
