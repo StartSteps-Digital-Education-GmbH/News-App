@@ -14,6 +14,11 @@ const register = '/api/users/register';
 
 beforeAll(async () => {
   await AppDataSource.initialize();
+
+  const res = await request(app).post(register).send(randomUser);
+  if (res.status !== 201) {
+    throw new Error('Failed to register user during global setup');
+  }
 });
 
 afterAll(async () => {
@@ -28,7 +33,6 @@ describe('User Tests', () => {
   });
 });
 
-// User Login Tests
 describe('user login tests', () => {
   beforeEach(async () => {
     await request(app).post(register).send(randomUser);
