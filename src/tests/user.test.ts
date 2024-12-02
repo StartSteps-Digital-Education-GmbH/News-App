@@ -40,7 +40,7 @@ describe("User Tests", () => {
         };
         const res = await request(app).post(registerEndpoint).send(invalidUser);
         expect(res.status).toBe(400);
-        expect(res.body.error).toContain('"name" is not allowed to be empty');
+        expect(res.body.error).toContain('"name" is required');
     });
 
     it("should return 400 for missing email", async () => {
