@@ -10,7 +10,7 @@ const randomUser = {
 };
 
 const login = '/api/users/login';
-const register = '/api/users/register';
+const registerEndpoint = '/api/users/register';
 
 beforeAll(async () => {
   await AppDataSource.initialize();
