@@ -1,6 +1,5 @@
 import type { Request, Response } from 'express';
 import { fetchFromNewsAPI } from '../../utils.js';
-import { assert } from 'joi';
 
 const getLatestNews = async (req: Request, res: Response) => {
   const { q, limit, sortBy } = req.query;
@@ -23,14 +22,25 @@ const getTopHeadlines = async (req: Request, res: Response) => {
       pageSize: limit,
     });
 
-    const transformedArticles = news.articles.map((article: { title: any; description: any; url: any; source: { name: any; }; publishedAt: any; }, index: number) => ({
-      id: `news${index + 1}`,
-      title: article.title,
-      description: article.description,
-      url: article.url,
-      source: article.source.name,
-      publishedAt: article.publishedAt,
-    }));
+    const transformedArticles = news.articles.map(
+      (
+        article: {
+          title: unknown;
+          description: unknown;
+          url: unknown;
+          source: { name: unknown };
+          publishedAt: unknown;
+        },
+        index: number,
+      ) => ({
+        id: `news${index + 1}`,
+        title: article.title,
+        description: article.description,
+        url: article.url,
+        source: article.source.name,
+        publishedAt: article.publishedAt,
+      }),
+    );
 
     res.status(200).send(transformedArticles);
   } catch (error) {
