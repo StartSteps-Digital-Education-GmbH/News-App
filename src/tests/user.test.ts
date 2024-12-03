@@ -58,7 +58,7 @@ describe('User test', () => {
   it('should register a user', async () => {
     const res = await request(app).post('/api/users/register').send(randomUser);
     expect(res.status).toBe(201);
-    expect(res.body.message).toBe('User Registered Succefully');
+    expect(res.body.message).toBe('User registered successfully');
   });
 });
 
@@ -80,7 +80,7 @@ describe('User profile test', () => {
       .get(getUserProfileURL)
       .set('Authorization', `Bearer ${validTokenForNotRegisteredUser}`);
     expect(res.status).toBe(404);
-    expect(res.body.message).toBe('User Not Found');
+    expect(res.body.message).toBe('User not found');
   });
 
   it('should not retrive a user profile when a token is not sent', async () => {
