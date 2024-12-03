@@ -3,6 +3,7 @@ import { DataSource } from 'typeorm';
 
 import { configs } from './env.js';
 import { User } from '../entities/User.js';
+import { Profile } from '../entities/Profile.js';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -11,7 +12,7 @@ export const AppDataSource = new DataSource({
   username: configs.database.POSTGRES_USER,
   password: configs.database.POSTGRES_PASSWORD,
   database: configs.database.POSTGRES_DB,
-  entities: [User],
+  entities: [User, Profile],
   synchronize: true,
   logging: true,
 });
