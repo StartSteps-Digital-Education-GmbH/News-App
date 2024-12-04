@@ -1,6 +1,6 @@
-import app from '../index.js';
+import app from '../../index.js';
 import request from 'supertest';
-import { AppDataSource } from '../config/database.js';
+import { AppDataSource } from '../../config/database.js';
 import { faker } from '@faker-js/faker';
 
 const randomUser = {
@@ -9,28 +9,20 @@ const randomUser = {
   name: faker.person.fullName(),
 };
 
-const login = '/api/users/login';
-const register = '/api/users/register';
+const loginEndpoint = '/api/users/login';
 
 beforeAll(async () => {
   await AppDataSource.initialize();
+  await request(app).post('/api/users/register').send(randomUser);
 });
 
 afterAll(async () => {
   await AppDataSource.destroy();
 });
 
-describe('User Tests', () => {
-  it('should register a User', async () => {
-    const res = await request(app).post('/api/users/register').send(randomUser);
-    expect(res.status).toBe(201);
-    expect(res.body.message).toBe('User registered successfully');
-  });
-});
-
 describe('user login tests', () => {
   it('should login with valid credentials', async () => {
-    const res = await request(app).post(login).send({
+    const res = await request(app).post(loginEndpoint).send({
       email: randomUser.email,
       password: randomUser.password,
     });
@@ -40,7 +32,7 @@ describe('user login tests', () => {
   });
 
   it('should return 401 for wrong email', async () => {
-    const res = await request(app).post(login).send({
+    const res = await request(app).post(loginEndpoint).send({
       email: 'wrong@email.com',
       password: randomUser.password,
     });
@@ -49,7 +41,7 @@ describe('user login tests', () => {
   });
 
   it('should return 401 for wrong password', async () => {
-    const res = await request(app).post(login).send({
+    const res = await request(app).post(loginEndpoint).send({
       email: randomUser.email,
       password: 'wrongpassword',
     });
@@ -58,7 +50,7 @@ describe('user login tests', () => {
   });
 
   it('should return 400 for missing email', async () => {
-    const res = await request(app).post(login).send({
+    const res = await request(app).post(loginEndpoint).send({
       password: randomUser.password,
     });
     expect(res.status).toBe(400);
@@ -66,7 +58,7 @@ describe('user login tests', () => {
   });
 
   it('should return 400 for missing password', async () => {
-    const res = await request(app).post(login).send({
+    const res = await request(app).post(loginEndpoint).send({
       email: randomUser.email,
     });
     expect(res.status).toBe(400);
