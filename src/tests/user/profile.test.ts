@@ -2,10 +2,10 @@ import request from 'supertest';
 import { faker } from '@faker-js/faker';
 import jwt from 'jsonwebtoken';
 
-import app from '../index.js';
-import { AppDataSource } from '../config/database.js';
-import { User } from '../entities/User.js';
-import { configs } from '../config/env.js';
+import app from '../../index.js';
+import { AppDataSource } from '../../config/database.js';
+import { User } from '../../entities/User.js';
+import { configs } from '../../config/env.js';
 
 let randomUser: User;
 let validToken: string;
