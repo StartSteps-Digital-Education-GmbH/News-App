@@ -146,4 +146,4 @@ This project uses **Jest** for testing. Integration and unit tests are located i
 2. Create a feature branch (`git checkout -b feature-name`).
 3. Commit your changes (`git commit -m "Add feature-name"`).
 4. Push to your branch (`git push origin feature-name`).
-5. Open a Pull Request.
+5. Open a Pull Request
