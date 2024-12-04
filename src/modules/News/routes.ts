@@ -10,4 +10,10 @@ router.get(
   newsController.getLatestNews,
 );
 
+router.get(
+  '/sources',
+  validateRequest(newsValidationSchemas.getSources), 
+  newsController.getSources, 
+);
+
 export default router;
