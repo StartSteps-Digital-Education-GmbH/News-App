@@ -12,8 +12,8 @@ router.get(
 
 router.get(
   '/sources',
-  validateRequest(newsValidationSchemas.getSources), 
-  newsController.getSources, 
+  validateRequest(newsValidationSchemas.getSources),
+  newsController.getSources,
 );
 
 export default router;

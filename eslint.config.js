@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 
 export default defineConfig([
   {
-    files: ["src/**/*.ts"],
+    files: ['src/**/*.ts'],
     ignores: ['node_modules', 'dist', 'src/tests/**/*'], // Exclude tests from linting
     languageOptions: {
       parser: parserTypescript,
@@ -35,7 +35,10 @@ export default defineConfig([
       'no-unused-vars': 'off',
       'no-console': 'warn',
 
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' },
+      ],
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/consistent-type-imports': 'error',
@@ -52,6 +55,6 @@ export default defineConfig([
         },
       },
     },
-    ignores: ["dist/**", "node_modules/**", "src/tests/**"], // Ensure test files are ignored
+    ignores: ['dist/**', 'node_modules/**', 'src/tests/**'], // Ensure test files are ignored
   },
 ]);

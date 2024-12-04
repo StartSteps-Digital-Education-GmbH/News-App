@@ -15,20 +15,17 @@ const getLatestNews = async (req: Request, res: Response) => {
 
 const getSources = async (req: Request, res: Response) => {
   const { language, country, category } = req.query;
-  
-    try {
-     const sources = await fetchFromNewsAPI('/sources', {
-      language, 
-      country,  
-      category, 
+
+  try {
+    const sources = await fetchFromNewsAPI('/sources', {
+      language,
+      country,
+      category,
     });
     res.status(200).send(sources.sources);
   } catch (error) {
-    res
-      .status(500)
-      .send({ message: 'Error in getting News Sources', error });
+    res.status(500).send({ message: 'Error in getting News Sources', error });
   }
 };
 
 export default { getLatestNews, getSources };
-

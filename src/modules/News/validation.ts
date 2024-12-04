@@ -11,14 +11,20 @@ const latestNews = {
 
 const getSources = {
   query: Joi.object({
-    language: Joi.string().length(2).optional(), 
-    country: Joi.string().length(2).optional(),  
+    language: Joi.string().length(2).optional(),
+    country: Joi.string().length(2).optional(),
     category: Joi.string()
-      .valid('business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology')
-      .optional()
+      .valid(
+        'business',
+        'entertainment',
+        'general',
+        'health',
+        'science',
+        'sports',
+        'technology',
+      )
+      .optional(),
   }),
 };
 
-
 export default { latestNews, getSources };
-
