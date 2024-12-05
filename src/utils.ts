@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { configs } from './config/env.js';
 import type { IArticles } from './types/types.js';
 
@@ -10,6 +11,7 @@ export const fetchFromNewsAPI = async (endpoint: string, params: any) => {
       apikey: configs.NEWS_API_KEY,
     },
   });
+
   return response.data;
 };
 
