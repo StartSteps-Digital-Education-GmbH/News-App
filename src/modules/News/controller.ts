@@ -65,4 +65,19 @@ const getSources = async (req: Request, res: Response) => {
   }
 };
 
-export default { getLatestNews, getTopHeadlines, getSources };
+const getSearch = async (req: Request, res: Response) => {
+  const { q, from, to, sortBy } = req.query;
+  try {
+    const articles = await fetchFromNewsAPI('/everything', {
+      q,
+      from,
+      to,
+      sortBy,
+    });
+    res.status(200).send(articles.articles);
+  } catch (error) {
+    res.status(500).send({ message: 'Error in fetching search results', error });
+  }
+};
+
+export default { getLatestNews, getTopHeadlines, getSources, getSearch };
