@@ -18,4 +18,22 @@ const headlines = {
   }),
 };
 
-export default { latestNews, headlines };
+const sources = {
+  query: Joi.object({
+    language: Joi.string().length(2).optional(),
+    country: Joi.string().length(2).optional(),
+    category: Joi.string()
+      .valid(
+        'business',
+        'entertainment',
+        'general',
+        'health',
+        'science',
+        'sports',
+        'technology',
+      )
+      .optional(),
+  }),
+};
+
+export default { latestNews, headlines, sources };
