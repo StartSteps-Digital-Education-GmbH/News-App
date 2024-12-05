@@ -1,5 +1,10 @@
 import type { Request, Response } from 'express';
-import { fetchFromNewsAPI } from '../../utils.js';
+import {
+  fetchFromNewsAPI,
+  formatArticlesResponse,
+  validateCategory,
+} from '../../utils.js';
+import type { IArticles, PaginatedResults } from 'src/types/types.js';
 
 const getLatestNews = async (req: Request, res: Response) => {
   const { q, limit, sortBy } = req.query;
@@ -14,30 +19,27 @@ const getLatestNews = async (req: Request, res: Response) => {
 };
 
 const getPersonalizedNews = async (req: Request, res: Response) => {
-  const { categories, limit = 10 } = req.query;
+  const { categories, limit, page } = req.query;
+  const category = validateCategory(categories as string);
 
-  if (!categories) {
-    res
-      .status(400)
-      .send({ message: 'Missing required query parameter: categories' });
-    return;
-  }
+  const pageNumber = Number(page) || 1;
+  const limitNumber = Number(limit) || 10;
 
   try {
-    const news = await fetchFromNewsAPI('/everything', {
-      q: categories,
-      limit,
+    const news = await fetchFromNewsAPI('/top-headlines', {
+      category,
+      pageSize: limitNumber,
+      page: pageNumber,
     });
 
-    const formattedResponse = news.articles.map((article: any) => ({
-      id: article.id,
-      title: article.title,
-      description: article.description,
-      url: article.url,
-      source: article.source.name,
-      publishedAt: article.publishedAt,
-    }));
-    res.status(200).send(formattedResponse);
+    const paginatedArticles: PaginatedResults<IArticles> =
+      formatArticlesResponse(news.articles, pageNumber, limitNumber);
+
+    res.status(200).send({
+      articles: paginatedArticles.data,
+      currentPage: paginatedArticles.currentPage,
+      totalPages: paginatedArticles.totalPages,
+    });
   } catch (error) {
     res
       .status(500)

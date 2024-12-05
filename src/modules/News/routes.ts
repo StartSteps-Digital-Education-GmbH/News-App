@@ -10,6 +10,11 @@ router.get(
   validateRequest(newsValidationSchemas.latestNews),
   newsController.getLatestNews,
 );
-router.get('/personalized', auth, newsController.getPersonalizedNews);
+router.get(
+  '/personalized',
+  auth,
+  validateRequest(newsValidationSchemas.personalizedNews),
+  newsController.getPersonalizedNews,
+);
 
 export default router;
