@@ -9,7 +9,6 @@ const randomUser = {
   name: faker.person.fullName(),
 };
 
-const login = '/api/users/login';
 const registerEndpoint = '/api/users/register';
 
 beforeAll(async () => {
