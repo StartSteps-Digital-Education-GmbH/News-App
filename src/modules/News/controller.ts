@@ -48,3 +48,5 @@ const getPersonalizedNews = async (req: Request, res: Response) => {
 };
 
 export default { getLatestNews, getPersonalizedNews };
+
+// comment for a commit

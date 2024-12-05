@@ -33,3 +33,5 @@ const personalizedNews = {
 };
 
 export default { latestNews, personalizedNews, validateQuery };
+
+// comment for a commit
