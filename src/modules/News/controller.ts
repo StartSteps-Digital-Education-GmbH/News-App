@@ -76,7 +76,9 @@ const getSearch = async (req: Request, res: Response) => {
     });
     res.status(200).send(articles.articles);
   } catch (error) {
-    res.status(500).send({ message: 'Error in fetching search results', error });
+    res
+      .status(500)
+      .send({ message: 'Error in fetching search results', error });
   }
 };
 
