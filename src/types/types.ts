@@ -3,7 +3,6 @@ export interface PaginatedResults<T> {
   currentPage: number;
   totalPages: number;
 }
-
 export interface IArticles {
   source: {
     id: string;

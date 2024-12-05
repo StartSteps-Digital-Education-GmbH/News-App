@@ -5,7 +5,6 @@ import {
   validateCategory,
 } from '../../utils.js';
 import type { IArticles, PaginatedResults } from 'src/types/types.js';
-
 const getLatestNews = async (req: Request, res: Response) => {
   const { q, limit, sortBy } = req.query;
   try {

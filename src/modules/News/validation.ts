@@ -1,6 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
 import Joi from 'joi';
-
 const latestNews = {
   query: Joi.object({
     q: Joi.string().optional(),
