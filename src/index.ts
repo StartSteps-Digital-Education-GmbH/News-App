@@ -14,6 +14,7 @@ app.use('/api', router);
 if (configs.NODE_ENV !== 'test') {
   connectDB().then(() => {
     app.listen(configs.PORT, () => {
+      // eslint-disable-next-line no-console
       console.log(`the Server is running on port ${configs.PORT}`);
     });
   });

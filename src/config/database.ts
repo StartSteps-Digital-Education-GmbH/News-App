@@ -19,8 +19,10 @@ export const AppDataSource = new DataSource({
 export const connectDB = async () => {
   try {
     await AppDataSource.initialize();
+    // eslint-disable-next-line no-console
     console.log('Connected to Database');
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Error in connecting to Database', error);
   }
 };

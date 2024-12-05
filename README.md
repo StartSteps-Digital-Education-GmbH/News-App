@@ -30,6 +30,7 @@ This is the **backend** of the **Personalized News Aggregator App**, built using
 ## Prerequisites
 
 Ensure the following are installed:
+
 - [Node.js](https://nodejs.org/) (v18+ recommended)
 - [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
@@ -39,13 +40,16 @@ Ensure the following are installed:
 ## Setup and Installation
 
 ### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/yourusername/news-aggregator-backend.git
 cd news-aggregator-backend
 ```
 
 ### 2. Set Up Environment Variables
+
 Create a `.env` file in the root directory:
+
 ```plaintext
 NODE_ENV=development
 PORT=4000
@@ -55,11 +59,13 @@ JWT_SECRET=your_jwt_secret
 ```
 
 ### 3. Install Dependencies
+
 ```bash
 npm install
 ```
 
 ### 4. Run the Development Server
+
 ```bash
 npm run dev
 ```
@@ -71,14 +77,17 @@ npm run dev
 This project includes a `Dockerfile` and `docker-compose.yml` for easy containerization.
 
 ### 1. Build and Run the Container
+
 ```bash
 docker-compose up --build
 ```
 
 ### 2. Access the Application
+
 - The backend will be accessible at `http://localhost:4000`.
 
 ### 3. Stop the Container
+
 ```bash
 docker-compose down
 ```
@@ -88,15 +97,18 @@ docker-compose down
 ## API Endpoints
 
 ### Authentication
+
 - **POST** `/api/auth/register`: Register a new user.
 - **POST** `/api/auth/login`: Login with email and password.
 
 ### News
+
 - **GET** `/api/news`: Fetch all news articles.
 - **POST** `/api/news/bookmark`: Bookmark a news article.
 - **POST** `/api/news/comment`: Add a comment to a news article.
 
 ### Users
+
 - **GET** `/api/users/me`: Fetch user profile.
 - **PUT** `/api/users/update`: Update user profile.
 
@@ -130,9 +142,11 @@ docker-compose down
 ## Testing
 
 Run tests with:
+
 ```bash
 npm test
 ```
+
 This project uses **Jest** for testing. Integration and unit tests are located in the `tests/` directory.
 
 ![Lint and Test](https://github.com/StartSteps-Digital-Education-GmbH/News-App/actions/workflows/backend-ci.yml/badge.svg)
