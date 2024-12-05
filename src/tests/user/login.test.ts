@@ -20,6 +20,15 @@ afterAll(async () => {
   await AppDataSource.destroy();
 });
 
+beforeEach(async () => {
+  await AppDataSource.query('BEGIN');
+});
+
+afterEach(async ()=> {
+  await AppDataSource.query('ROLLBACK');
+
+})
+
 describe('user login tests', () => {
   it('should login with valid credentials', async () => {
     const res = await request(app).post(loginEndpoint).send({
