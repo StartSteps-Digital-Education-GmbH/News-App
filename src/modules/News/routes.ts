@@ -18,5 +18,3 @@ router.get(
 );
 
 export default router;
-
-// comment for a commit

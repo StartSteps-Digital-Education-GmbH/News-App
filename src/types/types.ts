@@ -16,5 +16,3 @@ export interface IArticles {
   publishedAt: string;
   content: string;
 }
-
-// comment for a commit
