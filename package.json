@@ -8,7 +8,7 @@
     "dev": "nodemon",
     "build": "tsc",
     "start": "NODE_ENV=production node dist/index.js",
-    "test": "cross-env NODE_ENV=test npm run build && jest",
+    "test": "cross-env NODE_ENV=test npm run build && jest --runInBand",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
