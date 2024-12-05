@@ -13,19 +13,41 @@ const getLatestNews = async (req: Request, res: Response) => {
   }
 };
 
-const getSources = async (req: Request, res: Response) => {
-  const { language, country, category } = req.query;
-
+const getTopHeadlines = async (req: Request, res: Response) => {
+  const { country, category, limit } = req.query;
   try {
-    const sources = await fetchFromNewsAPI('/sources', {
-      language,
+    const news = await fetchFromNewsAPI('/top-headlines', {
       country,
       category,
+      pageSize: limit,
     });
-    res.status(200).send(sources.sources);
+
+    const transformedArticles = news.articles.map(
+      (
+        article: {
+          title: unknown;
+          description: unknown;
+          url: unknown;
+          source: { name: unknown };
+          publishedAt: unknown;
+        },
+        index: number,
+      ) => ({
+        id: `news${index + 1}`,
+        title: article.title,
+        description: article.description,
+        url: article.url,
+        source: article.source.name,
+        publishedAt: article.publishedAt,
+      }),
+    );
+
+    res.status(200).send(transformedArticles);
   } catch (error) {
-    res.status(500).send({ message: 'Error in getting News Sources', error });
+    res
+      .status(500)
+      .send({ message: 'Error in getting the top headlines', error });
   }
 };
 
-export default { getLatestNews, getSources };
+export default { getLatestNews, getTopHeadlines };
