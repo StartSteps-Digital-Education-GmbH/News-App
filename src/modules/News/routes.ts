@@ -5,6 +5,7 @@ import newsController from './controller.js';
 import authMiddleWare from '../../middleware/auth.js';
 const router = Router();
 import auth from '../../middleware/auth.js';
+
 router.get(
   '/latest',
   validateRequest(newsValidationSchemas.latestNews),
