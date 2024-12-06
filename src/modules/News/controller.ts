@@ -65,7 +65,7 @@ const getSources = async (req: Request, res: Response) => {
   }
 };
 
-const getSearch = async (req: Request, res: Response) => {
+const getSearchResults = async (req: Request, res: Response) => {
   const { q, from, to, sortBy } = req.query;
   try {
     const articles = await fetchFromNewsAPI('/everything', {
@@ -82,4 +82,4 @@ const getSearch = async (req: Request, res: Response) => {
   }
 };
 
-export default { getLatestNews, getTopHeadlines, getSources, getSearch };
+export default { getLatestNews, getTopHeadlines, getSources, getSearchResults };

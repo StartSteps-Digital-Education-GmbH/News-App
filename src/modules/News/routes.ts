@@ -27,7 +27,7 @@ router.get(
 router.get(
   '/search',
   validateRequest(newsValidationSchemas.search),
-  newsController.getSearch,
+  newsController.getSearchResults,
 );
 
 export default router;
