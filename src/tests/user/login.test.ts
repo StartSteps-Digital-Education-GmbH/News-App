@@ -24,10 +24,9 @@ beforeEach(async () => {
   await AppDataSource.query('BEGIN');
 });
 
-afterEach(async ()=> {
+afterEach(async () => {
   await AppDataSource.query('ROLLBACK');
-
-})
+});
 
 describe('user login tests', () => {
   it('should login with valid credentials', async () => {
