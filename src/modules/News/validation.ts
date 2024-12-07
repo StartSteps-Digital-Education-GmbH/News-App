@@ -10,6 +10,14 @@ const latestNews = {
   }),
 };
 
+const personalizedNews = {
+  query: Joi.object({
+    categories: Joi.string().required(),
+    limit: Joi.number().integer().min(1).max(100).default(10),
+    page: Joi.number().integer().min(1).max(100).default(1),
+  }),
+};
+
 const headlines = {
   query: Joi.object({
     country: Joi.string().optional().length(2),
@@ -18,4 +26,4 @@ const headlines = {
   }),
 };
 
-export default { latestNews, headlines };
+export default { latestNews, headlines, personalizedNews };
