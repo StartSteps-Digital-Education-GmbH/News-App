@@ -52,17 +52,8 @@ const login = async (req: Request, res: Response) => {
 };
 
 const profile = async (req: Request, res: Response) => {
-  const userId = req.user?.id;
-  try {
-    const user = await userRepository.findOneBy({ id: userId });
-    if (!user) {
-      res.status(404).send({ message: 'User not found' });
-      return;
-    }
-    res.status(200).send({ user });
-  } catch (error) {
-    res.status(500).send({ message: 'Error in getting user Profile', error });
-  }
+  const { user } = req;
+  res.status(200).send({ user });
 };
 
 export default { register, login, profile };
