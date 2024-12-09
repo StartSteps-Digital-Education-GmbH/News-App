@@ -12,16 +12,24 @@ const authMiddleWare = (req: Request, res: Response, next: NextFunction) => {
     if (!configs.auth.JWT_SECRET) {
       throw new Error('Error in verifing the token');
     }
-    jwt.verify(token, configs.auth.JWT_SECRET, (error, decode) => {
-      if (error) {
+
+    const decode = jwt.verify(token, configs.auth.JWT_SECRET) as { id: number };
+    req.user = decode;
+
+    next();
+  } catch (error: any) {
+    if (error) {
+      if (error.name === 'TokenExpiredError') {
+        res.status(401).send({ message: 'Token has expired' });
+        return;
+      }
+      if (error.name === 'JsonWebTokenError') {
         res.status(401).send({ message: 'Invalid token' });
         return;
       }
-      req.user = decode as { id: number };
-    });
-    next();
-  } catch (error) {
+    }
     res.status(500).send({ message: 'A Server Error occured', error });
+    return;
   }
 };
 
