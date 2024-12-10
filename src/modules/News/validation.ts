@@ -21,7 +21,17 @@ const personalizedNews = {
 const headlines = {
   query: Joi.object({
     country: Joi.string().optional().length(2),
-    category: Joi.string().optional(),
+    category: Joi.string()
+      .valid(
+        'business',
+        'entertainment',
+        'general',
+        'health',
+        'science',
+        'sports',
+        'technology',
+      )
+      .required(),
     limit: Joi.number().integer().min(1).max(100).default(5),
   }),
 };
