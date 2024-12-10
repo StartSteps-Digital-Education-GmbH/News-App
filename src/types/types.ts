@@ -15,3 +15,10 @@ export interface IArticles {
   publishedAt: string;
   content: string;
 }
+
+export interface FetchArticleParams {
+  title: string;
+  description?: string;
+  source?: string;
+  publishedAt?: string;
+}
