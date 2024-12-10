@@ -61,7 +61,7 @@ beforeAll(async () => {
 
   validToken = loggedUser.body.token;
   validTokenForNotRegisteredUser = jwt.sign(
-    { id: faker.number.int({max: 1000000}) },
+    { id: faker.number.int({min: 1000000, max: 2000000}) },
     configs.auth.JWT_SECRET,
     {
       expiresIn: '1h',
@@ -84,7 +84,7 @@ afterAll(async () => {
   await AppDataSource.destroy();
 });
 
-describe('User profile test', () => {
+describe('User profile & auth Middleware tests', () => {
   it('should retrive a user profile when a valid token is sent', async () => {
     const res = await request(app)
       .get(getUserProfileURL)
@@ -101,8 +101,8 @@ describe('User profile test', () => {
     const res = await request(app)
       .get(getUserProfileURL)
       .set('Authorization', `Bearer ${validTokenForNotRegisteredUser}`);
-    expect(res.status).toBe(404);
-    expect(res.body.message).toBe('User not found');
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('Invalid token: User not found');
   });
 
   it('should not retrive a user profile when a token is not sent', async () => {
