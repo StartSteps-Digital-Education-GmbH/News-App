@@ -7,6 +7,5 @@ const router = Router();
 
 router.use('/users', userRoutes);
 router.use('/news', newsRoutes);
-router.use('/bookmark', createBookmark);
 
 export default router;
