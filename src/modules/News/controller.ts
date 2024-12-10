@@ -110,4 +110,10 @@ const getSearchResults = async (req: Request, res: Response) => {
   }
 };
 
-export default { getLatestNews, getTopHeadlines, getSources, getSearchResults, getPersonalizedNews };
+export default {
+  getLatestNews,
+  getTopHeadlines,
+  getSources,
+  getSearchResults,
+  getPersonalizedNews,
+};
