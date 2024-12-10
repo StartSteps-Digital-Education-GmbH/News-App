@@ -1,5 +1,15 @@
 import Joi from 'joi';
 
+const categories = [
+  'business',
+  'entertainment',
+  'general',
+  'health',
+  'science',
+  'sports',
+  'technology',
+];
+
 const latestNews = {
   query: Joi.object({
     q: Joi.string().optional(),
@@ -10,12 +20,24 @@ const latestNews = {
   }),
 };
 
+const personalizedNews = {
+  query: Joi.object({
+    categories: Joi.string()
+      .valid(...categories)
+      .required(),
+    limit: Joi.number().integer().min(1).max(100).default(10),
+    page: Joi.number().integer().min(1).max(100).default(1),
+  }),
+};
+
 const headlines = {
   query: Joi.object({
     country: Joi.string().optional().length(2),
-    category: Joi.string().optional(),
+    category: Joi.string()
+      .valid(...categories)
+      .optional(),
     limit: Joi.number().integer().min(1).max(100).default(5),
   }),
 };
 
-export default { latestNews, headlines };
+export default { latestNews, headlines, personalizedNews };
