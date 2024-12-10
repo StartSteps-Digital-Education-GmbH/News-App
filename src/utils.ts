@@ -30,18 +30,3 @@ export const formatArticlesResponse = (
     totalPages: Math.ceil(articles.length / limit),
   };
 };
-
-export const validateCategory = (
-  category: string | undefined,
-): string | undefined => {
-  const validCategories = [
-    'business',
-    'entertainment',
-    'general',
-    'health',
-    'science',
-    'sports',
-    'technology',
-  ];
-  return category && validCategories.includes(category) ? category : undefined;
-};

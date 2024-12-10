@@ -1,9 +1,5 @@
 import type { Request, Response } from 'express';
-import {
-  fetchFromNewsAPI,
-  formatArticlesResponse,
-  validateCategory,
-} from '../../utils.js';
+import { fetchFromNewsAPI, formatArticlesResponse } from '../../utils.js';
 import type { IArticles, PaginatedResults } from 'src/types/types.js';
 const getLatestNews = async (req: Request, res: Response) => {
   const { q, limit, sortBy } = req.query;
@@ -18,8 +14,7 @@ const getLatestNews = async (req: Request, res: Response) => {
 };
 
 const getPersonalizedNews = async (req: Request, res: Response) => {
-  const { categories, limit, page } = req.query;
-  const category = validateCategory(categories as string);
+  const { category, limit, page } = req.query;
 
   const pageNumber = Number(page) || 1;
   const limitNumber = Number(limit) || 10;
