@@ -10,7 +10,7 @@ dotenv.config({ path: envFile });
 
 export const configs = {
   NODE_ENV: process.env.NODE_ENV,
-  PORT: process.env.PORT || 5000,
+  PORT: process.env.PORT || 5100,
   database: {
     POSTGRES_HOST: process.env.POSTGRES_HOST || 'postgres',
     POSTGRES_PORT: parseInt(process.env.POSTGRES_PORT || '5432'),

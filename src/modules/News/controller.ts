@@ -78,4 +78,42 @@ const getTopHeadlines = async (req: Request, res: Response) => {
   }
 };
 
-export default { getLatestNews, getTopHeadlines, getPersonalizedNews };
+const getSources = async (req: Request, res: Response) => {
+  const { language, country, category } = req.query;
+
+  try {
+    const sources = await fetchFromNewsAPI('/sources', {
+      language,
+      country,
+      category,
+    });
+    res.status(200).send(sources.sources);
+  } catch (error) {
+    res.status(500).send({ message: 'Error in getting News Sources', error });
+  }
+};
+
+const getSearchResults = async (req: Request, res: Response) => {
+  const { q, from, to, sortBy } = req.query;
+  try {
+    const articles = await fetchFromNewsAPI('/everything', {
+      q,
+      from,
+      to,
+      sortBy,
+    });
+    res.status(200).send(articles.articles);
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: 'Error in fetching search results', error });
+  }
+};
+
+export default {
+  getLatestNews,
+  getTopHeadlines,
+  getSources,
+  getSearchResults,
+  getPersonalizedNews,
+};
