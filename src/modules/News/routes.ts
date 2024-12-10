@@ -4,7 +4,6 @@ import { validateRequest } from '../../middleware/validateRequest.js';
 import newsController from './controller.js';
 import authMiddleWare from '../../middleware/auth.js';
 const router = Router();
-import auth from '../../middleware/auth.js';
 
 router.get(
   '/latest',
@@ -13,7 +12,7 @@ router.get(
 );
 router.get(
   '/personalized',
-  auth,
+  authMiddleWare,
   validateRequest(newsValidationSchemas.personalizedNews),
   newsController.getPersonalizedNews,
 );
