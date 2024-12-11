@@ -10,6 +10,12 @@ router.get(
   validateRequest(newsValidationSchemas.latestNews),
   newsController.getLatestNews,
 );
+router.get(
+  '/personalized',
+  authMiddleWare,
+  validateRequest(newsValidationSchemas.personalizedNews),
+  newsController.getPersonalizedNews,
+);
 
 router.get(
   '/headlines',
