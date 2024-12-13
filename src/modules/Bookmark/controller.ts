@@ -42,4 +42,39 @@ const createBookmark = async (req: Request, res: Response) => {
   }
 };
 
-export default { createBookmark };
+const getBookmarkedArticle = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
+  const { bookmarkId } = req.params;
+
+  try {
+    const id = parseInt(bookmarkId, 10);
+    if (isNaN(id)) {
+      res.status(400).send({ message: 'Invalid bookmark ID.' });
+      return;
+    }
+
+    const bookmarkRepository = AppDataSource.getRepository(Bookmark);
+    const bookmark = await bookmarkRepository.findOne({
+      where: { bookmarkId: id },
+      relations: ['news'],
+    });
+
+    if (!bookmark) {
+      res.status(404).send({ message: 'Bookmark not found.' });
+      return;
+    }
+
+    res.status(200).send(bookmark);
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : 'Unknown error';
+    res.status(500).send({
+      message: 'An error occurred while fetching the bookmarked article.',
+      error: errorMessage,
+    });
+  }
+};
+
+export default { createBookmark, getBookmarkedArticle };

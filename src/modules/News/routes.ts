@@ -24,4 +24,10 @@ router.get(
   newsController.getTopHeadlines,
 );
 
+router.get(
+  '/single',
+  validateRequest(newsValidationSchemas.fetchSingleArticle),
+  newsController.fetchSingleArticle,
+);
+
 export default router;

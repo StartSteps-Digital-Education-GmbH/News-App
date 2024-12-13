@@ -78,4 +78,32 @@ const getTopHeadlines = async (req: Request, res: Response) => {
   }
 };
 
-export default { getLatestNews, getTopHeadlines, getPersonalizedNews };
+const fetchSingleArticle = async (req: Request, res: Response) => {
+  const { title, description, publishedAt } = req.query;
+
+  try {
+    const article = await fetchFromNewsAPI('/everything', {
+      q: `${title} ${description}`,
+      publishedAt,
+    });
+
+    if (article.articles.length === 0) {
+      res.status(404).send({ message: 'Article not found.' });
+      return;
+    }
+
+    res.status(200).send(article.articles[0]);
+  } catch (error) {
+    res.status(500).send({
+      message: 'Error in fetching the single article',
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+};
+
+export default {
+  getLatestNews,
+  getTopHeadlines,
+  getPersonalizedNews,
+  fetchSingleArticle,
+};

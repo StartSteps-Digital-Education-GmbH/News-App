@@ -40,4 +40,12 @@ const headlines = {
   }),
 };
 
-export default { latestNews, headlines, personalizedNews };
+const fetchSingleArticle = {
+  query: Joi.object({
+    title: Joi.string().required(),
+    description: Joi.string().required(),
+    publishedAt: Joi.date().iso().required(),
+  }),
+};
+
+export default { latestNews, headlines, personalizedNews, fetchSingleArticle };

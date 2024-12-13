@@ -10,4 +10,10 @@ const create = {
   }),
 };
 
-export default { create };
+const getBookmarkedArticle = {
+  params: Joi.object({
+    bookmarkId: Joi.number().integer().required(),
+  }),
+};
+
+export default { create, getBookmarkedArticle };

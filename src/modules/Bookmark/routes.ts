@@ -13,4 +13,11 @@ router.post(
   bookmarkController.createBookmark,
 );
 
+router.get(
+  '/:bookmarkId',
+  auth,
+  validateRequest(validationSchema.getBookmarkedArticle),
+  bookmarkController.getBookmarkedArticle,
+);
+
 export default router;
