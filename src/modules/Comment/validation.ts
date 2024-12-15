@@ -9,6 +9,9 @@ const comments = {
     publishedAt: Joi.string().required(),
     content: Joi.string().required().min(2),
   }),
+  params: Joi.object({
+    newsId: Joi.number().integer().required(),
+  }),
 };
 
 export default { comments };

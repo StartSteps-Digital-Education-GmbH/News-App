@@ -12,5 +12,9 @@ router.post(
   validateRequest(commentsValidationSchema.comments),
   commentsController.commentOnNewsArticle,
 );
-
+router.get(
+  '/:newsId',
+  validateRequest(commentsValidationSchema.comments),
+  commentsController.getNewsComments,
+);
 export default router;
