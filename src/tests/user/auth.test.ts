@@ -91,9 +91,7 @@ describe('User profile & auth Middleware tests', () => {
       .set('Authorization', `Bearer ${validToken}`);
     expect(res.status).toBe(200);
     expect(res.body.user).toMatchObject({
-      id: userAcessingProfile.id,
-      email: userAcessingProfile.email,
-      name: userAcessingProfile.name,
+      id: userAcessingProfile.id
     });
   });
 
