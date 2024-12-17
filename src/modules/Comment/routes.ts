@@ -9,12 +9,12 @@ const router = Router();
 router.post(
   '/',
   authMiddleware,
-  validateRequest(commentsValidationSchema.comments),
+  validateRequest(commentsValidationSchema.createComments),
   commentsController.commentOnNewsArticle,
 );
-router.get(
-  '/:newsId',
-  validateRequest(commentsValidationSchema.comments),
+router.post(
+  '/getcommentbyurl',
+  validateRequest(commentsValidationSchema.getComments),
   commentsController.getNewsComments,
 );
 export default router;

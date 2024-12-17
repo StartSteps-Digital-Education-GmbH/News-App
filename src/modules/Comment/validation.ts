@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const comments = {
+const createComments = {
   body: Joi.object({
     title: Joi.string().required(),
     description: Joi.string().required(),
@@ -9,9 +9,14 @@ const comments = {
     publishedAt: Joi.string().required(),
     content: Joi.string().required().min(2),
   }),
-  params: Joi.object({
-    newsId: Joi.number().integer().required(),
+};
+
+const getComments = {
+  body: Joi.object({
+    url: Joi.string()
+      .uri({ scheme: ['http', 'https'] })
+      .required(),
   }),
 };
 
-export default { comments };
+export default { createComments, getComments };

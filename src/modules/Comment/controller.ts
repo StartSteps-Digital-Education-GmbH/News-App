@@ -46,16 +46,19 @@ const commentOnNewsArticle = async (req: Request, res: Response) => {
 };
 
 const getNewsComments = async (req: Request, res: Response) => {
-  const newsId = parseInt(req.params.newsId);
+  const { url } = req.body;
 
   try {
-    const news = await newsRepository.findOneBy({ newsId });
+    const news = await newsRepository.findOneBy({ url });
     if (!news) {
-      res.status(404).send({ message: 'No News Found with this ID' });
+      res
+        .status(404)
+        .send({ message: 'No news article found with the provided URL.' });
+      return;
     }
 
     const newsComments = await commentRepository.find({
-      where: { news: { newsId } },
+      where: { news: { url } },
       relations: ['news', 'user'],
       select: {
         user: {
