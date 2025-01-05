@@ -24,7 +24,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '${PORT:-5000}:5000' # Use PORT from .env, default to 5000 if not set
+      - '${BACKEND_PORT:-5000}:${PORT:-4999}' # Use PORT from .env, default to 5000 if not set
     depends_on:
       postgres:
         condition: service_healthy
@@ -33,9 +33,11 @@ services:
     volumes:
       - ./src:/usr/src/app/src # Sync local src folder to container
       - ./node_modules:/usr/src/app/node_modules # Set up shared dependencies
-    command: npx nodemon --watch src --exec node --loader ts-node/esm -r dotenv/config src/index.ts
+    command: npm run watch
     networks:
       - app-network
+    environment:
+      - POSTGRES_HOST=postgres-db-news-app
 
 networks:
   app-network:
