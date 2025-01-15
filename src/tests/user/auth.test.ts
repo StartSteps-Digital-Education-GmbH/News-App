@@ -92,8 +92,8 @@ describe('User profile & auth Middleware tests', () => {
     expect(res.status).toBe(200);
     expect(res.body.user).toMatchObject({
       id: userAcessingProfile.id,
-      email: userAcessingProfile.email,
       name: userAcessingProfile.name,
+      email: userAcessingProfile.email
     });
   });
 
