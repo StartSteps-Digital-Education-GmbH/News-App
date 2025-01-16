@@ -13,8 +13,9 @@ app.use('/api', router);
 
 if (configs.NODE_ENV !== 'test') {
   connectDB().then(() => {
-    app.listen(configs.PORT, () => {
-      console.log(`the Server is running on port ${configs.PORT}`);
+    const port = Number(configs.PORT) || 5000; // Default to 5000 if PORT is invalid
+    app.listen(port, '0.0.0.0', () => {
+      console.log(`The Server is running on port ${port}`);
     });
   });
 }
