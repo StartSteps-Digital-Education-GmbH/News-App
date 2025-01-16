@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const comments = {
+const createComments = {
   body: Joi.object({
     title: Joi.string().required(),
     description: Joi.string().required(),
@@ -11,4 +11,12 @@ const comments = {
   }),
 };
 
-export default { comments };
+const getComments = {
+  body: Joi.object({
+    url: Joi.string()
+      .uri({ scheme: ['http', 'https'] })
+      .required(),
+  }),
+};
+
+export default { createComments, getComments };

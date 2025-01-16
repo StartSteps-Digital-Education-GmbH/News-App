@@ -45,4 +45,37 @@ const commentOnNewsArticle = async (req: Request, res: Response) => {
   }
 };
 
-export default { commentOnNewsArticle };
+const getNewsComments = async (req: Request, res: Response) => {
+  const { url } = req.body;
+
+  try {
+    const news = await newsRepository.findOneBy({ url });
+    if (!news) {
+      res
+        .status(404)
+        .send({ message: 'No news article found with the provided URL.' });
+      return;
+    }
+
+    const newsComments = await commentRepository.find({
+      where: { news: { url } },
+      relations: ['news', 'user'],
+      select: {
+        user: {
+          name: true,
+        },
+      },
+    });
+
+    res
+      .status(200)
+      .send({ message: 'Comment successfully retrieved ', data: newsComments });
+  } catch (err) {
+    res.status(500).send({
+      message: 'Error in commenting on the news article',
+      error: (err as Error).message,
+    });
+  }
+};
+
+export default { commentOnNewsArticle, getNewsComments };
