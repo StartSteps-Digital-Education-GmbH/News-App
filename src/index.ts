@@ -1,8 +1,9 @@
 import express from 'express';
 
-import { configs } from './config/env.js';
-import { connectDB } from './config/database.js';
-import router from './routes.js';
+import { configs } from './config/env';
+import { connectDB } from './config/database';
+import router from './routes';
+
 
 const app = express();
 
